@@ -1,38 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// --- Import Components ของ User (จากบทที่ 7) ---
 
-// --- Import Components ของ Menu (สำหรับปฏิบัติการบทที่ 7) ---
-import MenuIndex from '../components/Menus/Index.vue'
-import MenuCreate from '../components/Menus/CreateMenu.vue'
-import MenuEdit from '../components/Menus/EditMenu.vue'
-import MenuShow from '../components/Menus/ShowMenu.vue'
-  
-const router = createRouter({  
-  history: createWebHistory(import.meta.env.BASE_URL),  
-  routes: [  
-    // --- Menu Routes ---
-    {  
-      path: '/menus',  
-      name: 'menus',  
-      component: MenuIndex  // หน้ารายการเมนู
-    },  
-    {  
-      path: '/menu/create',  
-      name: 'menu-create',  
-      component: MenuCreate // หน้าสร้างเมนูใหม่
-    },  
-    {  
-      path: '/menu/edit/:menuId', // กำหนดให้รับ Parameter :menuId สำหรับแก้ไข
-      name: 'menu-edit',  
-      component: MenuEdit  
-    }, 
-    {  
-      path: '/menu/:menuId', // กำหนดให้รับ Parameter :menuId สำหรับดูรายละเอียด
-      name: 'menu-show',  
-      component: MenuShow
-    }
-  ]  
-})  
-  
+import Index from '@/components/Coffees/Index.vue'
+import CreateCoffee from '@/components/Coffees/CreateCoffee.vue'
+import EditCoffee from '@/components/Coffees/EditCoffee.vue'
+
+const routes = [
+  { path: '/', redirect: '/coffees' },
+  { path: '/coffees', component: Index },
+  { path: '/coffee/create', component: CreateCoffee },
+  { path: '/coffee/edit/:coffeeId', component: EditCoffee }
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
 export default router
-
