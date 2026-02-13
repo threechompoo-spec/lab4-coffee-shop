@@ -1,4 +1,7 @@
-const { User } = require('../models')
+const {User} = require('../models')
+const config = require('../config/config')
+const jwt = require('jsonwebtoken')
+
 
 module.exports = {
     // ฟังก์ชันสำหรับสมัครสมาชิก

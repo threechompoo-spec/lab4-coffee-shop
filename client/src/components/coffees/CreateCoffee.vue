@@ -1,33 +1,18 @@
 <template>
   <div>
-    <h2>เพิ่มเมนูกาแฟ</h2>
-
-    <form @submit.prevent="createCoffee">
-      <p>
-        Name:
-        <input v-model="coffee.name" required>
-      </p>
-      <p>
-        Price:
-        <input type="number" v-model="coffee.price" required>
-      </p>
-      <p>
-        Type:
-        <input v-model="coffee.type" placeholder="hot / iced / frappe" required>
-      </p>
-      <p>
-        Description:
-        <textarea v-model="coffee.description"></textarea>
-      </p>
-
-      <button type="submit">บันทึก</button>
+    <h1>สร้างเมนูใหม่</h1>
+    <form v-on:submit.prevent="createCoffee">
+      <p>ชื่อเมนู: <input type="text" v-model="coffee.name"></p>
+      <p>ราคา: <input type="text" v-model="coffee.price"></p>
+      <p>ประเภท: <input type="text" v-model="coffee.type"></p>
+      <p>สถานะ: <input type="text" v-model="coffee.status"></p>
+      <p><button type="submit">บันทึก</button></p>
     </form>
   </div>
 </template>
 
 <script>
-import CoffeesService from '@/services/CoffeesService'
-
+import CoffeeService from '../../services/CoffeeService'
 export default {
   data () {
     return {
@@ -35,44 +20,19 @@ export default {
         name: '',
         price: '',
         type: '',
-        description: ''
+        status: ''
       }
     }
   },
   methods: {
     async createCoffee () {
-      await CoffeesService.post(this.coffee)
-      this.$router.push('/coffees')
+      try {
+        await CoffeeService.post(this.coffee)
+        this.$router.push({ name: 'coffees' })
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }
 </script>
-<style scoped>
-form {
-  max-width: 400px;
-  margin: auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-button {
-  width: 100%;
-  margin-top: 15px;
-  background: #6f4e37;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-}
-</style>
